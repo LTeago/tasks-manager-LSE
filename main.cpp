@@ -1,17 +1,55 @@
 #include <iostream>
-#include "list.h"
+#include "list.hpp"
 
-int main(){
+int main() {
+    sc::list<Tarefa> tarefas;
     int n;
-    std::cout << "Bem-vindo ao gerenciamento de tarefas!\n"
-    << "O que deseja fazer?\n"
-    << "1 - Para inserir uma nova tarefa;\n"
-    << "2 - Para remover uma tarefa pelo ID;\n"
-    << "3 - Para remover tarefas pela prioridade;\n"
-    << "4 - Para buscar uma tarefa pelo ID e detalhar;\n"
-    << "5 - Para exibir todas as tarefas em ordem de prioridade\n"
-    << "0 - Pressione para finalizar atendimento\n";
-    std::cin >> n;
 
-    
+    do {
+        std::cout << "\nBem-vindo ao gerenciamento de tarefas!\n"
+                  << "1 - Inserir nova tarefa\n"
+                  << "2 - Remover tarefa pelo ID\n"
+                  << "3 - Remover tarefas por prioridade\n"
+                  << "4 - Buscar tarefa por ID\n"
+                  << "5 - Exibir tarefas por prioridade\n"
+                  << "0 - Sair\n";
+        std::cin >> n;
+
+        switch (n) {
+            case 1:
+                inserirTarefa(tarefas);
+                break;
+            case 2: {
+                int id;
+                std::cout << "Digite o ID da tarefa a remover: ";
+                std::cin >> id;
+                removerPorId(tarefas, id);
+                break;
+            }
+            case 3: {
+                int prio;
+                std::cout << "Digite a prioridade a remover: ";
+                std::cin >> prio;
+                removerPorPrioridade(tarefas, prio);
+                break;
+            }
+            case 4: {
+                int id;
+                std::cout << "Digite o ID da tarefa a buscar: ";
+                std::cin >> id;
+                buscarPorId(tarefas, id);
+                break;
+            }
+            case 5:
+                exibirPorPrioridade(tarefas);
+                break;
+            case 0:
+                std::cout << "Encerrando o programa.\n";
+                break;
+            default:
+                std::cout << "Opção inválida.\n";
+        }
+    } while (n != 0);
+
+    return 0;
 }
