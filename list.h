@@ -9,6 +9,7 @@
 namespace sc
 {
 
+
   template <typename T>
   class list
   {
@@ -20,12 +21,6 @@ namespace sc
 
       Node(const T &d = T{}, Node *n = nullptr)
           : data{d}, next{n} {}
-    };
-    struct Tarefa
-    {
-      int id;
-      char descricao[101]; 
-      int prioridade; 
     };
 
     Node *head;
@@ -55,17 +50,7 @@ namespace sc
       }
       ++size_;
     }
-    Tarefa criarTarefas(){
-      Tarefa t;
-      std::cout << "Qual o ID da tarefa?\n";
-      std::cin >> t.id;
-      std::cin.ignore();
-      std::cout << "Descreva a tarefa em até 100 caracteres\n";
-      std::cin.getline(t.descricao, 101);
-      std::cout << "Qual a prioridade da tarefa? Escolha entre 1 e 3.";
-      std::cin >> t.prioridade;
-      return t;
-    }
+    
 
     void clear()
     {
