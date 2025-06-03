@@ -1,5 +1,5 @@
 #include <iostream>
-#include "list.hpp"
+#include "list.h"
 
 int main() {
     sc::list<Tarefa> tarefas;
@@ -17,31 +17,31 @@ int main() {
 
         switch (n) {
             case 1:
-                inserirTarefa(tarefas);
+                sc::tarefas.push_back(sc::criarTarefa());
                 break;
             case 2: {
                 int id;
                 std::cout << "Digite o ID da tarefa a remover: ";
                 std::cin >> id;
-                removerPorId(tarefas, id);
+                sc::removerPorId(tarefas, id);
                 break;
             }
             case 3: {
                 int prio;
                 std::cout << "Digite a prioridade a remover: ";
                 std::cin >> prio;
-                removerPorPrioridade(tarefas, prio);
+                sc::removerPorPrioridade(tarefas, prio);
                 break;
             }
             case 4: {
                 int id;
                 std::cout << "Digite o ID da tarefa a buscar: ";
                 std::cin >> id;
-                buscarPorId(tarefas, id);
+                sc::buscarPorId(tarefas, id);
                 break;
             }
             case 5:
-                exibirPorPrioridade(tarefas);
+                sc::exibirPorPrioridade(tarefas);
                 break;
             case 0:
                 std::cout << "Encerrando o programa.\n";
