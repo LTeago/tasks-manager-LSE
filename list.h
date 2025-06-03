@@ -1,41 +1,57 @@
 #ifndef LIST_HPP
 #define LIST_HPP
 
-#include <iostream> // cout, endl
+#include <iostream>
+#include <cassert>
+#include <cstddef>
+#include <iterator>
 
-#include <cassert>  // assert()
-#include <cstddef>  // std::ptrdiff_t
-#include <iterator> // bidirectional_iterator_tag
+namespace sc {
 
-namespace sc
-{
+template <typename T>
+class list {
+private:
+    struct Node {
+        T data;
+        Node* next;
 
-  template <typename T>
-  class list
-  {
-  private:
-    //=== the data node.
-    struct Node
-    {
-      T data; // Tipo de informação a ser armazenada no container.
-      Node *next;
-      Node *prev;
-
-      Node(const T &d = T{}, Node *n = nullptr)
-          : data{d}, next{n} { /* empty */ }
+        Node(const T& d = T{}, Node* n = nullptr)
+            : data{d}, next{n} {}
     };
 
-  public:
-    void push_back(const T &val)
-    {
-      Node *new_node{new Node(val, m_tail, m_tail->prev)};
+    Node* head;
+    std::size_t size_;
 
-      m_tail->prev->next = new_node;
-      m_tail->prev = new_node;
+public:
+    list() : head(nullptr), size_(0) {}
 
-      ++m_len;
+    ~list() {
+        clear(); 
     }
-  };
-}
 
-#endif
+    void push_back(const T& value) {
+        Node* node = new Node(value);
+        if (!head) {
+            head = node;
+        } else {
+            Node* curr = head;
+            while (curr->next)
+                curr = curr->next;
+            curr->next = node;
+        }
+        ++size_;
+    }
+
+    void clear() {
+        while (head != nullptr) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+        size_ = 0;
+    }
+};
+
+} // namespace sc
+
+#endif // LIST_HPP
