@@ -18,13 +18,10 @@ Tarefa criarTarefa()
     std::cin.getline(t.descricao, 101);
     std::cout << "Qual a prioridade da tarefa? Escolha entre 1 e 3.\n";
     std::cin >> t.prioridade;
+    std::cout << "Tarefa adicionada com sucesso.";
     return t;
 }
 
-Tarefa removerPorId()
-{
-
-}
 
 int main()
 {
@@ -52,7 +49,7 @@ int main()
             int id;
             std::cout << "Digite o ID da tarefa a remover: ";
             std::cin >> id;
-            //sc::removerPorId(tarefas, id);
+            tarefas.removerPorID(id);
             break;
         }
         case 3:
@@ -72,7 +69,7 @@ int main()
             break;
         }
         case 5:
-            //sc::exibirPorPrioridade(tarefas);
+            tarefas.exibirTarefas();
             break;
         case 0:
             std::cout << "Encerrando o programa.\n";

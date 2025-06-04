@@ -9,7 +9,6 @@
 namespace sc
 {
 
-
   template <typename T>
   class list
   {
@@ -33,6 +32,10 @@ namespace sc
     {
       clear();
     }
+    [[nodiscard]] bool empty() const
+    {
+      return size_ == 0;
+    }
 
     void push_back(const T &value)
     {
@@ -50,7 +53,6 @@ namespace sc
       }
       ++size_;
     }
-    
 
     void clear()
     {
@@ -61,6 +63,58 @@ namespace sc
         delete temp;
       }
       size_ = 0;
+    }
+
+    void removerPorID(int id)
+    {
+      Node *atual = head;
+      Node *anterior = nullptr;
+
+      if (empty())
+        throw std::out_of_range("Não há tarefas a serem removidas, adicione uma tarefa.");
+
+      while (atual)
+      {
+        if (atual->data.id == id)
+        {
+          if (anterior)
+          {
+            anterior->next = atual->next;
+          }
+          else
+          {
+            head = atual->next;
+          }
+          delete atual;
+          --size_;
+          std::cout << "Tarefa removida com sucesso.\n";
+          return;
+        }
+        anterior = atual;
+        atual = atual->next;
+      }
+      std::cout << "Tarefa não encontrada.\n";
+    }
+
+    void exibirTarefas()
+    {
+      if (empty())
+        throw std::out_of_range("Não há tarefas a serem exibidas, adicione uma tarefa.");
+      for (int prioridade = 1; prioridade <= 3; ++prioridade)
+      {
+        Node *atual = head;
+        while (atual)
+        {
+          if (atual->data.prioridade == prioridade)
+          {
+            std::cout << "ID: " << atual->data.id << "\n";
+            std::cout << "Prioridade: " << atual->data.prioridade << "\n";
+            std::cout << "Tarefa: " << atual->data.descricao << "\n";
+            std::cout << "-----------------------------\n";
+          }
+          atual = atual->next;
+        }
+      }
     }
   };
 
