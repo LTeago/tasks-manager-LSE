@@ -6,6 +6,34 @@
 #include <cstddef>
 #include <iterator>
 
+struct Tarefa
+{
+  int id;
+  char descricao[101];
+  int prioridade;
+};
+
+Tarefa criarTarefa()
+{
+  Tarefa t;
+  std::cout << "-----------------------------\n";
+  std::cout << "Qual a prioridade da tarefa? Escolha entre 1 e 3.\n";
+  std::cin >> t.prioridade;
+  if (t.prioridade < 1 || t.prioridade > 3)
+  {
+    std::cout << "Prioridade inválida. Válido somente entre 1 e 3\n";
+    return criarTarefa();
+  }
+  std::cout << "Qual o ID da tarefa?\n";
+  std::cin >> t.id;
+  std::cin.ignore();
+  std::cout << "Descreva a tarefa em até 100 caracteres\n";
+  std::cin.getline(t.descricao, 101);
+  std::cout << "Tarefa adicionada com sucesso.\n";
+  std::cout << "-----------------------------\n";
+
+  return t;
+}
 namespace sc
 {
 
@@ -68,18 +96,21 @@ namespace sc
     void removerPorID(int id)
     {
       Node *atual = head;
-      Node *anterior = nullptr;
+      Node *aux = nullptr;
 
       if (empty())
-        throw std::out_of_range("Não há tarefas a serem removidas, adicione uma tarefa.");
+      {
+        std::cout << "Não há tarefas a serem removidas, adicione uma tarefa.\n";
+        return;
+      }
 
       while (atual)
       {
         if (atual->data.id == id)
         {
-          if (anterior)
+          if (aux)
           {
-            anterior->next = atual->next;
+            aux->next = atual->next;
           }
           else
           {
@@ -90,7 +121,7 @@ namespace sc
           std::cout << "Tarefa removida com sucesso.\n";
           return;
         }
-        anterior = atual;
+        aux = atual;
         atual = atual->next;
       }
       std::cout << "Tarefa não encontrada.\n";
@@ -99,7 +130,7 @@ namespace sc
     void exibirTarefas()
     {
       if (empty())
-        throw std::out_of_range("Não há tarefas a serem exibidas, adicione uma tarefa.");
+        std::cout << "Não há tarefas a serem exibidas, adicione uma tarefa.\n";
       for (int prioridade = 1; prioridade <= 3; ++prioridade)
       {
         Node *atual = head;
@@ -107,6 +138,7 @@ namespace sc
         {
           if (atual->data.prioridade == prioridade)
           {
+            std::cout << "-----------------------------\n";
             std::cout << "ID: " << atual->data.id << "\n";
             std::cout << "Prioridade: " << atual->data.prioridade << "\n";
             std::cout << "Tarefa: " << atual->data.descricao << "\n";
@@ -115,6 +147,27 @@ namespace sc
           atual = atual->next;
         }
       }
+    }
+
+    void buscarPorId(int id)
+    {
+      Node *atual = head;
+      Node *aux = nullptr;
+
+      while (atual)
+      {
+        if (atual->data.id == id)
+        {
+          std::cout << "-----------------------------\n";
+          std::cout << "ID: " << id << "\n";
+          std::cout << "Prioridade: " << atual->data.prioridade << "\n";
+          std::cout << "Tarefa: " << atual->data.descricao << "\n";
+          std::cout << "-----------------------------\n";
+          return;
+        }
+        atual = atual->next;
+      }
+      std::cout << "Tarefa não encontrada";
     }
   };
 

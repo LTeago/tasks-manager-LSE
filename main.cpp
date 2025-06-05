@@ -1,26 +1,6 @@
 #include <iostream>
 #include "list.h"
 
-struct Tarefa
-{
-    int id;
-    char descricao[101];
-    int prioridade;
-};
-
-Tarefa criarTarefa()
-{
-    Tarefa t;
-    std::cout << "Qual o ID da tarefa?\n";
-    std::cin >> t.id;
-    std::cin.ignore();
-    std::cout << "Descreva a tarefa em até 100 caracteres\n";
-    std::cin.getline(t.descricao, 101);
-    std::cout << "Qual a prioridade da tarefa? Escolha entre 1 e 3.\n";
-    std::cin >> t.prioridade;
-    std::cout << "Tarefa adicionada com sucesso.";
-    return t;
-}
 
 
 int main()
@@ -36,7 +16,7 @@ int main()
                   << "3 - Remover tarefas por prioridade\n"
                   << "4 - Buscar tarefa por ID\n"
                   << "5 - Exibir tarefas por prioridade\n"
-                  << "0 - Sair\n";
+                  << "0 - Sair\n\n";
         std::cin >> n;
 
         switch (n)
@@ -57,7 +37,7 @@ int main()
             int prio;
             std::cout << "Digite a prioridade a remover: ";
             std::cin >> prio;
-            //sc::removerPorPrioridade(tarefas, prio);
+            // tarefas.removerPorPrioridade(prio);
             break;
         }
         case 4:
@@ -65,7 +45,7 @@ int main()
             int id;
             std::cout << "Digite o ID da tarefa a buscar: ";
             std::cin >> id;
-            //sc::buscarPorId(tarefas, id);
+            tarefas.buscarPorId(id);
             break;
         }
         case 5:
