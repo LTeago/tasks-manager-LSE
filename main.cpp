@@ -16,6 +16,7 @@ int main()
                   << "3 - Remover tarefas por prioridade\n"
                   << "4 - Buscar tarefa por ID\n"
                   << "5 - Exibir tarefas por prioridade\n"
+                  << "6 - Apagar todas as tarefas\n"
                   << "0 - Sair\n\n";
         std::cin >> n;
 
@@ -37,7 +38,7 @@ int main()
             int prio;
             std::cout << "Digite a prioridade a remover: ";
             std::cin >> prio;
-            // tarefas.removerPorPrioridade(prio);
+            tarefas.removerPorPrio(prio);
             break;
         }
         case 4:
@@ -49,11 +50,23 @@ int main()
             break;
         }
         case 5:
+        {
             tarefas.exibirTarefas();
             break;
+        }
+        case 6:
+        {
+            char c;
+            std::cout << "Tem certeza? Digite 'S' para Sim ou 'N' para Não.\n";
+            std::cin >> c;
+            if(c == 'S' || c=='s') tarefas.clear();
+            break;
+        }
         case 0:
+        {
             std::cout << "Encerrando o programa.\n";
             break;
+        }
         default:
             std::cout << "Opção inválida.\n";
         }

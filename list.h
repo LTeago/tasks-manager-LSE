@@ -16,7 +16,6 @@ struct Tarefa
 Tarefa criarTarefa()
 {
   Tarefa t;
-  std::cout << "-----------------------------\n";
   std::cout << "Qual a prioridade da tarefa? Escolha entre 1 e 3.\n";
   std::cin >> t.prioridade;
   if (t.prioridade < 1 || t.prioridade > 3)
@@ -29,8 +28,7 @@ Tarefa criarTarefa()
   std::cin.ignore();
   std::cout << "Descreva a tarefa em até 100 caracteres\n";
   std::cin.getline(t.descricao, 101);
-  std::cout << "Tarefa adicionada com sucesso.\n";
-  std::cout << "-----------------------------\n";
+  std::cout << "<---- Tarefa adicionada com sucesso ---->\n";
 
   return t;
 }
@@ -100,7 +98,7 @@ namespace sc
 
       if (empty())
       {
-        std::cout << "Não há tarefas a serem removidas, adicione uma tarefa.\n";
+        std::cout << "!---- Não há tarefas a serem removidas, adicione uma tarefa ----!\n";
         return;
       }
 
@@ -116,21 +114,27 @@ namespace sc
           {
             head = atual->next;
           }
+          std::cout << "Tarefa a ser removida:\n";
+          std::cout << "-----------------------------\n";
+          std::cout << "Prioridade: " << atual->data.prioridade << "\n";
+          std::cout << "ID: " << atual->data.id << "\n";
+          std::cout << "Tarefa: " << atual->data.descricao << "\n";
+          std::cout << "-----------------------------\n";
           delete atual;
           --size_;
-          std::cout << "Tarefa removida com sucesso.\n";
+          std::cout << "<---- Tarefa removida com sucesso ---->\n";
           return;
         }
         aux = atual;
         atual = atual->next;
       }
-      std::cout << "Tarefa não encontrada.\n";
+      std::cout << "!---- Tarefa não encontrada ----!\n";
     }
 
     void exibirTarefas()
     {
       if (empty())
-        std::cout << "Não há tarefas a serem exibidas, adicione uma tarefa.\n";
+        std::cout << "!---- Não há tarefas a serem exibidas, adicione uma tarefa ----!\n";
       for (int prioridade = 1; prioridade <= 3; ++prioridade)
       {
         Node *atual = head;
@@ -139,8 +143,8 @@ namespace sc
           if (atual->data.prioridade == prioridade)
           {
             std::cout << "-----------------------------\n";
-            std::cout << "ID: " << atual->data.id << "\n";
             std::cout << "Prioridade: " << atual->data.prioridade << "\n";
+            std::cout << "ID: " << atual->data.id << "\n";
             std::cout << "Tarefa: " << atual->data.descricao << "\n";
             std::cout << "-----------------------------\n";
           }
@@ -167,7 +171,33 @@ namespace sc
         }
         atual = atual->next;
       }
-      std::cout << "Tarefa não encontrada";
+      std::cout << "!---- Tarefa não encontrada ----!\n";
+    }
+
+    void removerPorPrio(int prio)
+    {
+     
+      Node *aux = nullptr;
+      Node *atual = head;
+      while (atual)
+      {
+        if (atual->data.prioridade == prio)
+        {
+          if (aux)
+          {
+            aux->next = atual->next;
+          }
+          else
+          {
+            head = atual->next;
+          }
+          delete atual;
+          --size_;
+          std::cout << "<---- Tarefas removida com sucesso ---->\n";
+        }
+        atual = atual->next;
+      }
+      std::cout << "!---- Não há tarefas com esta prioridade no momento ----!\n";
     }
   };
 
