@@ -8,9 +8,10 @@ int main()
     sc::list<Tarefa> tarefas;
     int n;
 
+    std::cout << "\nBem-vindo ao gerenciamento de tarefas!\n";
     do
     {
-        std::cout << "\nBem-vindo ao gerenciamento de tarefas!\n"
+        std::cout << "\nO que deseja fazer?!\n"
                   << "1 - Inserir nova tarefa\n"
                   << "2 - Remover tarefa pelo ID\n"
                   << "3 - Remover tarefas por prioridade\n"

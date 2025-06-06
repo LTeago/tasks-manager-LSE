@@ -32,6 +32,9 @@ Tarefa criarTarefa()
 
   return t;
 }
+
+
+
 namespace sc
 {
 
@@ -58,6 +61,7 @@ namespace sc
     {
       clear();
     }
+    
     [[nodiscard]] bool empty() const
     {
       return size_ == 0;
@@ -176,11 +180,13 @@ namespace sc
 
     void removerPorPrio(int prio)
     {
-     
+
       Node *aux = nullptr;
       Node *atual = head;
+      int cont{0};
       while (atual)
       {
+        Node *prox = atual->next;
         if (atual->data.prioridade == prio)
         {
           if (aux)
@@ -193,11 +199,16 @@ namespace sc
           }
           delete atual;
           --size_;
-          std::cout << "<---- Tarefas removida com sucesso ---->\n";
+          cont++;
         }
-        atual = atual->next;
+        else
+          aux = atual;
+        atual = prox;
       }
-      std::cout << "!---- Não há tarefas com esta prioridade no momento ----!\n";
+      if (cont > 0)
+        std::cout << "<---- Tarefas removida com sucesso ---->\n";
+      else
+        std::cout << "!---- Não há tarefas com esta prioridade no momento ----!\n";
     }
   };
 
